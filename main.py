@@ -26,14 +26,14 @@ class InputData(BaseModel):
 # Endpoint for Logistic Regression model
 @app.post("/predict/hepatitis")
 def predict_hepatitis(data: InputData):
-    input_data = pd.DataFrame([data.dict()])
+    input_data = pd.DataFrame([data.dict()]).to_numpy()
     prediction = logistic_regression_model.predict(input_data)[0]
     
     # Assuming 1 corresponds to hepatitis positive, and 0 corresponds to negative
     if prediction == 1:
-        result = "Positive"
-    else:
         result = "Negative"
+    else:
+        result = "Positive"
     
     return {"prediction": result}
 
